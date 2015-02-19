@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+
+<link rel="stylesheet" href="css/weatherstyle.css">
+
+
+    <title>Weather App</title>
+
+  </head>
+  <body>
+
+  	<div class="container">
+  		<div class="row">
+  			<div class="col-md-6 col-md-offset-3">
+
+		  		<div class="weather text-center">
+		  				
+		  			<h1>Whats Your Weather</h1>
+
+		  			<div class="your-weather"></div>
+
+		  			<form method="post">
+
+		  				<div class="form-group">
+		  					<input type="text" class="form-control" placeholder="Eg. Denver, New York, Seattle" id="city" name="city">
+		  				</div>
+
+		  				<div class="noCity alert alert-danger">Please Enter A City!</div>
+
+		  				<div id="fail" class="alert alert-danger">We could not find the data for that city.</div>
+
+	  					<button id="findMyWeather" type="submit" class="btn-lg btn btn-success">Find My Weather</button> 
+		  				
+
+		  			</form>
+				</div>
+
+
+  			</div>
+
+  		</div>
+  	</div>
+
+<script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+	<script>
+
+	$('#findMyWeather').click(function(e){
+		e.preventDefault();
+		$('.alert').hide();
+
+		if($('#city').val()!='') {
+
+		$.get('php/scraper.php?city='+$('#city').val(), function(data){
+
+			if(data=='') {
+
+				$('#fail').show();
+
+			} else {
+				$('.your-weather').html(data).fadeIn();
+			}
+		}); 
+
+		} else {
+			$('.noCity').show();
+		}
+
+	});//end click
+
+
+	</script>
+
+  </body>
+</html>
